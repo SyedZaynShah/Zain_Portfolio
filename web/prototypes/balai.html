@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Curated Drops Auction — Balai</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0a0906;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow:hidden}
+  .app-frame{position:fixed;inset:0;width:100%;height:100%;border:0;display:none;background:#e7e5df}
+  .app-frame.active{display:block}
+  #boot{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0906;z-index:5;transition:opacity .4s}
+  #boot svg{width:120px;height:80px}
+  #boot .cap{margin-top:18px;font-size:11px;letter-spacing:.34em;color:#c7a15e;font-weight:700}
+  #switcher{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;display:flex;align-items:center;gap:3px;background:rgba(20,16,9,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:5px;border-radius:32px;box-shadow:0 14px 36px -10px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.08)}
+  #switcher button{display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;border:0;border-radius:30px;cursor:pointer;font-size:13px;font-weight:700;font-family:inherit;background:transparent;color:#c9bfa8;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+  #switcher button.on{background:#c7a15e;color:#1a1208}
+  #switcher svg{width:15px;height:15px}
+</style>
+</head>
+<body>
+  <div id="boot">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="600" cy="340" r="210" fill="none" stroke="#c7a15e" stroke-width="7" opacity="0.45"/>
+      <path d="M600 230c-70 0-110 55-110 130 0 80 50 145 110 145s110-65 110-145c0-75-40-130-110-130z" fill="#c7a15e"/>
+    </svg>
+    <div class="cap">BALAI · CURATED AUCTIONS</div>
+  </div>
+
+  <nav id="switcher" hidden>
+    <button data-role="buyer" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Buyer</button>
+    <button data-role="seller"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8h9a3 3 0 0 1 0 6H7a3 3 0 0 0 0 6h10"/></svg>Seller</button>
+    <button data-role="curator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5L12 16l-5 2.9 1-5.5-4-3.9 5.5-.8z"/></svg>Curator</button>
+  </nav>
+
+  <iframe id="frame-buyer" class="app-frame active" title="Buyer"></iframe>
+  <iframe id="frame-seller" class="app-frame" title="Seller"></iframe>
+  <iframe id="frame-curator" class="app-frame" title="Curator"></iframe>
+
+  <script>
+  (function(){
+    var frames = {
+      buyer: document.getElementById('frame-buyer'),
+      seller: document.getElementById('frame-seller'),
+      curator: document.getElementById('frame-curator')
+    };
+    // Each role document is a separate same-origin file, fetched only when its
+    // tab is first shown — the initial load pulls just the buyer doc instead of
+    // all three inlined as base64 (which also lets the host gzip/brotli them).
+    var srcs = { buyer:'balai-buyer.html', seller:'balai-seller.html', curator:'balai-curator.html' };
+    var loaded = {}, current = 'buyer';
+
+    function roleFromHref(href){
+      if(/Seller/i.test(href)) return 'seller';
+      if(/Curator/i.test(href)) return 'curator';
+      if(/Buyer/i.test(href)) return 'buyer';
+      return null;
+    }
+    function wire(role){
+      frames[role].addEventListener('load', function(){
+        try {
+          var doc = frames[role].contentDocument;
+          if(!doc) return;
+          doc.addEventListener('click', function(e){
+            var a = e.target.closest && e.target.closest('a[href]');
+            if(!a) return;
+            var href = a.getAttribute('href') || '';
+            if(!/\.dc\.html/i.test(href)) return;
+            e.preventDefault(); e.stopPropagation();
+            var r = roleFromHref(href);
+            if(r) show(r);
+          }, true);
+        } catch(err){}
+      });
+    }
+    function ensure(role){
+      if(loaded[role]) return;
+      loaded[role] = true;
+      wire(role);
+      frames[role].src = srcs[role];
+    }
+    function show(role){
+      ensure(role);
+      current = role;
+      Object.keys(frames).forEach(function(k){ frames[k].classList.toggle('active', k===role); });
+      Array.prototype.forEach.call(document.querySelectorAll('#switcher button'), function(b){
+        b.classList.toggle('on', b.getAttribute('data-role')===role);
+      });
+      try { window.scrollTo(0,0); } catch(e){}
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('#switcher button'), function(b){
+      b.addEventListener('click', function(){ show(b.getAttribute('data-role')); });
+    });
+
+    // boot: load buyer, reveal UI, fade splash
+    frames.buyer.addEventListener('load', function once(){
+      frames.buyer.removeEventListener('load', once);
+      var boot = document.getElementById('boot');
+      var sw = document.getElementById('switcher');
+      sw.hidden = false;
+      boot.style.opacity = '0';
+      setTimeout(function(){ boot.style.display = 'none'; }, 450);
+    });
+    ensure('buyer');
+  })();
+  </script>
+</body>
+</html>
