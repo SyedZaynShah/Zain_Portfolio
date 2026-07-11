@@ -63,7 +63,7 @@ class WorksSection extends StatelessWidget {
     ),
   );
 
-  // project order: 0 roast · 1 elssa · 2 profund · 3 fitx · 4 sigap · 5 fe-touch · 6 balai
+  // project order: 0 modchat · 1 elssa · 2 fitx · 3 fe-touch · 4 balai
 
   Widget _cell(
     int index,
@@ -96,19 +96,20 @@ class WorksSection extends StatelessWidget {
     const gap = Spacing.gridGap;
     return Column(
       children: [
+        // Row 1: Featured ModChat (left 2/3) + stacked ELSSA and FitX (right 1/3)
         SizedBox(
           height: tall,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(flex: 2, child: _cell(0, 0, featured: true)),
+              Expanded(flex: 2, child: _cell(0, 0, featured: true)), // ModChat
               const SizedBox(width: gap),
               Expanded(
                 child: Column(
                   children: [
-                    Expanded(child: _cell(1, 1, compact: true)),
+                    Expanded(child: _cell(1, 1, compact: true)), // ELSSA
                     const SizedBox(height: gap),
-                    Expanded(child: _cell(2, 2, compact: true)),
+                    Expanded(child: _cell(2, 2, compact: true)), // FitX
                   ],
                 ),
               ),
@@ -116,28 +117,17 @@ class WorksSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: gap),
-        SizedBox(
-          height: tall,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(child: _cell(3, 3)),
-              const SizedBox(width: gap),
-              Expanded(flex: 2, child: _cell(4, 4, featured: true)),
-            ],
-          ),
-        ),
-        const SizedBox(height: gap),
+        // Row 2: FE Touch (left 1/2), Balai (right 1/2), CTA (right after)
         SizedBox(
           height: context.isWide ? 360 : 340,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(child: _cell(5, 5)),
+              Expanded(child: _cell(3, 3)), // FE Touch
               const SizedBox(width: gap),
-              Expanded(child: _cell(6, 6)),
+              Expanded(child: _cell(4, 4)), // Balai
               const SizedBox(width: gap),
-              Expanded(child: _ctaCell(7)),
+              Expanded(child: _ctaCell(5)),
             ],
           ),
         ),
@@ -150,45 +140,37 @@ class WorksSection extends StatelessWidget {
     const gap = Spacing.gridGap;
     return Column(
       children: [
+        // Featured ModChat full width
         SizedBox(height: 380, child: _cell(0, 0, featured: true)),
         const SizedBox(height: gap),
+        // ELSSA and FitX paired
         SizedBox(
           height: 330,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(child: _cell(1, 1)),
+              Expanded(child: _cell(1, 1)), // ELSSA
               const SizedBox(width: gap),
-              Expanded(child: _cell(2, 2)),
+              Expanded(child: _cell(2, 2)), // FitX
             ],
           ),
         ),
         const SizedBox(height: gap),
-        SizedBox(
-          height: 330,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(child: _cell(3, 3)),
-              const SizedBox(width: gap),
-              Expanded(child: _cell(4, 4)),
-            ],
-          ),
-        ),
-        const SizedBox(height: gap),
+        // FE Touch and Balai paired
         SizedBox(
           height: 320,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(child: _cell(5, 5)),
+              Expanded(child: _cell(3, 3)), // FE Touch
               const SizedBox(width: gap),
-              Expanded(child: _cell(6, 6)),
+              Expanded(child: _cell(4, 4)), // Balai
             ],
           ),
         ),
         const SizedBox(height: gap),
-        SizedBox(height: 200, child: _ctaCell(7)),
+        // CTA full width
+        SizedBox(height: 200, child: _ctaCell(5)),
       ],
     );
   }

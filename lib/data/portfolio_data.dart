@@ -59,7 +59,7 @@ class PortfolioData {
         'AI Moderation',
         'Push Notifications',
       ],
-      images: AppAssets.roast,
+      images: AppAssets.modchat,
       media: ProjectMedia.framedGallery,
       dominantColor: Color(0xFF0A0E27),
       accentColor: Color(0xFF6366F1),
@@ -91,51 +91,6 @@ class PortfolioData {
       year: '2024',
       status: 'Production Ready',
       githubUrl: 'https://github.com/SyedZaynShah/modchat',
-      isFeatured: true,
-    ),
-    const Project(
-      id: 'roast-pos',
-      name: 'ROAST POS',
-      category: 'POS PLATFORM',
-      platform: ProjectPlatform.pos,
-      tagline:
-          "Six products, one codebase — a restaurant's entire operating day.",
-      shortDesc:
-          'A multi-tenant SaaS platform for Indonesian F&B: a tablet POS, mobile '
-          'companion, time-clock, web ordering, admin console, and terminal — all '
-          'built from one Flutter monorepo over a single shared business-logic core.',
-      fullDesc:
-          "ROAST POS doesn't just record transactions; it models how a restaurant "
-          'actually runs — from opening the doors in the morning to counting the cash '
-          'drawer at night. It covers the full operational day, multi-station inventory '
-          'down to individual ingredient lots, an owner-configurable menu and modifier '
-          'system, dynamic payment methods from cash to QRIS, per-cashier cash '
-          'reconciliation, configurable approval workflows, loyalty, attendance, and '
-          'financial reporting — as one coherent, multi-tenant whole. The defining '
-          'constraint: six products, one codebase, zero duplicated business logic.',
-      tech: ['Flutter', 'Dart 3', 'GetX', 'Firebase', 'freezed', 'fl_chart'],
-      images: AppAssets.roast,
-      media: ProjectMedia.framedGallery,
-      dominantColor: Color(0xFF0E3B38),
-      accentColor: Color(0xFFE0A33C),
-      metrics: [
-        ProjectMetric('6', 'Products'),
-        ProjectMetric('680+', 'Passing tests'),
-        ProjectMetric('1', 'Shared core'),
-      ],
-      highlights: [
-        'A repository-pattern data layer is the only way to the database — business '
-            'rules live in exactly one place and every product inherits them identically.',
-        'A single toggle swaps the entire data layer between live Firebase and an '
-            'in-memory mock — the full app develops, runs, and tests offline.',
-        'An enforced operational state machine (Closed → Preparing → Open → Closing) '
-            'gates real behavior, keeping the books clean by construction.',
-        'Multi-station inventory tracked per location and per lot, with '
-            'station-relative dish availability and expiry-to-waste disposal.',
-      ],
-      role: 'Architecture, system design & technical direction',
-      year: '2025',
-      status: 'Shipped',
       isFeatured: true,
     ),
     const Project(
@@ -181,53 +136,7 @@ class PortfolioData {
       role: 'Solo founder — product, UX/UI, prototype, architecture',
       year: '2025–2026',
       status: 'Shipped',
-      prototypeUrl: 'prototypes/elssa.html',
       isFeatured: true,
-    ),
-    const Project(
-      id: 'profund-manager',
-      name: 'ProFund Manager',
-      category: 'FINANCE SAAS',
-      platform: ProjectPlatform.web,
-      tagline:
-          'Control project cost at the point of spend — before the money is gone.',
-      shortDesc:
-          'A B2B project-finance platform that tracks every rupiah across four states — '
-          'budget, reserved, committed, actual — for real-time cost visibility. A dense '
-          'web console plus a focused mobile companion, from one Flutter codebase.',
-      fullDesc:
-          'Project budgets in Indonesia are usually managed across disconnected '
-          'spreadsheets and accounting software that only records costs after they '
-          'happen. ProFund instead controls cost at the point of spend. Every rupiah '
-          'moves through Budget → Reserved → Committed → Actual, with automatic relief '
-          'at each transition, so exposure always reflects reality — not just what has '
-          'been invoiced. Over-budget is a deliberate, record-first state: never '
-          'blocked, but flagged loud, propagated up the work-breakdown tree, and forced '
-          'to a director sign-off. Overruns become conscious decisions, not month-end surprises.',
-      tech: ['Flutter', 'GetX', 'Firebase', 'freezed', 'Repository'],
-      images: AppAssets.profund,
-      media: ProjectMedia.framedGallery,
-      dominantColor: Color(0xFF0E2A47),
-      accentColor: Color(0xFF1FA89A),
-      metrics: [
-        ProjectMetric('4', 'State model'),
-        ProjectMetric('~30', 'Reports'),
-        ProjectMetric('7', 'Roles'),
-      ],
-      highlights: [
-        'A four-state money model — Budget → Reserved → Committed → Actual — with '
-            'pre-encumbrance first-class and automatic relief at every transition.',
-        'Over-budget is record-first: never blocked, always flagged loud and escalated '
-            'to a director — soft control over hard blocks.',
-        'A flat Firestore schema with denormalized ancestor arrays turns arbitrary-depth '
-            'WBS aggregation into a single transactional walk, not recursive reads.',
-        'One codebase, two adaptive flavors — dense tables and Miller-column WBS on the '
-            'console; drill-down and bottom sheets on mobile, at full parity.',
-      ],
-      role: 'Solo founder & builder — product, UX, architecture, build',
-      year: '2026',
-      status: 'Shipped',
-      prototypeUrl: 'prototypes/profund.html',
     ),
     const Project(
       id: 'fitx',
@@ -273,52 +182,6 @@ class PortfolioData {
           'Solo founder & builder — product, IA, system design, UX & art direction',
       year: '2026',
       status: 'Concept & product design',
-      prototypeUrl: 'prototypes/fitx.html',
-    ),
-    const Project(
-      id: 'sigap',
-      name: 'SIGAP',
-      category: 'EMERGENCY · B2G',
-      platform: ProjectPlatform.crossPlatform,
-      tagline:
-          "Don't sell the panic button — prove and improve the response time.",
-      shortDesc:
-          'An emergency reporting and response platform for Indonesian fire & rescue '
-          'services. A citizen reports in one tap with exact location; crews respond — '
-          'every incident timestamped against the mandated 15-minute response standard.',
-      fullDesc:
-          'When someone calls for help, the most common reason a crew reaches the wrong '
-          "place is that the caller can't describe their location. Meanwhile, every "
-          'Indonesian fire service answers to a mandated 15-minute response time. A panic '
-          'button on its own is a commodity that competes with a free national line. The '
-          'defensible product is the operational layer that measures and improves a '
-          "department's response time — so the response clock is the spine of the entire "
-          'system, and the citizen app is one intake channel feeding it. That reframed it '
-          'from "here\'s a panic button" to "prove and improve your mandated response time."',
-      tech: ['Flutter', 'Firebase', 'Real-time', 'Offline-first'],
-      images: AppAssets.sigap,
-      media: ProjectMedia.framedGallery,
-      dominantColor: Color(0xFF16202E),
-      accentColor: Color(0xFFE23B3B),
-      metrics: [
-        ProjectMetric('15 min', 'Response standard'),
-        ProjectMetric('3', 'Surfaces'),
-        ProjectMetric('1-tap', 'Report'),
-      ],
-      highlights: [
-        'Reframed from "a panic button" to the operational layer that measures and '
-            'improves response time — something a fire-service director is accountable for.',
-        'Three surfaces on one incident lifecycle: a citizen app, a field-hardened '
-            'responder app, and a real-time command dashboard with a ticking response clock.',
-        'A multi-tenant model where each department owns a coverage area and incidents '
-            'route by location, with a co-brandable citizen app.',
-        'Offline-first resilience — queued reports with an SMS fallback for the moments '
-            'connectivity matters most.',
-      ],
-      role: 'Solo founder — product, research, UX, architecture',
-      year: '2026',
-      status: 'Concept & product design',
-      prototypeUrl: 'prototypes/sigap.html',
     ),
     const Project(
       id: 'fe-touch',
@@ -398,7 +261,6 @@ class PortfolioData {
       role: 'Solo — product reframe, system design, visual language',
       year: '2026',
       status: 'Shipped',
-      prototypeUrl: 'prototypes/balai.html',
     ),
   ];
 

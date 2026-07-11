@@ -9,7 +9,7 @@ class AppAssets {
   /// Hero portrait layers. [heroForeground] is the composed, low-poly face on
   /// black (the default); [heroBackground] is the colourful, smiling self
   /// surrounded by real work, revealed under the cursor mask.
-  static const String heroForeground = 'assets/images/Foreground.webp';
+  static const String heroForeground = 'assets/images/Foreground.jpeg';
   static const String heroBackground = 'assets/images/Background--.webp';
 
   /// The six B&W "ink-drip" portrait fragments used in the About collage.
@@ -31,15 +31,6 @@ class AppAssets {
 
   static const String _g = 'assets/works/_gallery';
 
-  static const List<String> roast = [
-    '$_g/roast/01-pos-menu.jpg',
-    '$_g/roast/02-order-cart.jpg',
-    '$_g/roast/03-orders.jpg',
-    '$_g/roast/04-owner-dashboard.jpg',
-    '$_g/roast/05-ops-dashboard.jpg',
-    '$_g/roast/06-login.jpg',
-  ];
-
   static const List<String> feTouch = [
     '$_g/fe-teller/01-dashboard.jpg',
     '$_g/fe-teller/02-transaction.jpg',
@@ -53,23 +44,6 @@ class AppAssets {
     '$_g/elssa/04-teacher.jpg',
     '$_g/elssa/05-homeroom.jpg',
     '$_g/elssa/06-principal.jpg',
-  ];
-
-  static const List<String> profund = [
-    '$_g/profund/01-login.jpg',
-    '$_g/profund/02-dashboard.jpg',
-    '$_g/profund/03-exception.jpg',
-    '$_g/profund/04-cashflow.jpg',
-    '$_g/profund/05-projects.jpg',
-    '$_g/profund/06-approval.jpg',
-    '$_g/profund/07-reports.jpg',
-  ];
-
-  static const List<String> sigap = [
-    '$_g/sigap/01-idle.jpg',
-    '$_g/sigap/02-alert.jpg',
-    '$_g/sigap/03-dispatch.jpg',
-    '$_g/sigap/04-resolved.jpg',
   ];
 
   static const List<String> balai = [
@@ -87,17 +61,24 @@ class AppAssets {
     '$_g/fitx/05-trainer.jpg',
   ];
 
+  static const List<String> modchat = [
+    '$_g/modchat/pic1.jpeg',
+    '$_g/modchat/pic2.jpeg',
+    '$_g/modchat/pic3.jpeg',
+    '$_g/modchat/pic4.jpeg',
+    '$_g/modchat/pic5.jpeg',
+  ];
+
   /// Assets the intro decodes before the curtain lifts — logo, the B&W
   /// fragments (About is reached early), and each project's hero shot. The
   /// hero foreground fades in on mount; the heavy hero background loads lazily.
   static List<String> get preload => [
     logo,
     ...fragments,
-    roast.first,
+    modchat.first,
     feTouch.first,
     elssa.first,
-    profund.first,
     fitx.first,
-    sigap.first,
+    balai.first,
   ];
 }
